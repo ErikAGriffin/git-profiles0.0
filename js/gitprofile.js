@@ -12,10 +12,14 @@ $(document).ready(function() {
     $.ajax({
       url: url,
       type: "GET",
-      dataType: 'jsonp',
+      dataType: 'json',
       success: function(response){
-
         console.log(response);
+
+        var test = Mustache.render(template, response)
+        console.log(test)
+        $('main').append(test);
+
 
 
 
