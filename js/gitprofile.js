@@ -1,19 +1,46 @@
 $(document).ready(function() {
 
-  $('.gitprofile').on('submit', function(e) {
+  $('.gitprofile').on('submit', function(event) {
 
-    e.preventDefault();
+    event.preventDefault();
 
-    var url = 'https://api.github.com/users/' + $('input.username').val();
 
+    var username = $('.username').val();
+    var url = 'http://api.github.com/users/'+username;
     var template = $('template').html();
 
-    var info = $.get(url, function(info) {
-      $('.container').prepend(Mustache.render(template, info));
-    }).fail(function() {
-      $('.container').prepend("User not found")
-    }).always(function() {
-      $('input.username').val('');
-      });
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: 'jsonp',
+      success: function(response){
+
+        console.log(response);
+
+
+
+
+      },
+      error: function(){
+
+        console.log("error!");
+      }
+    })
+    .always(function() {
+      $('.username').val('');
+    });
+
+
+
+
+
+
   });
+
 });
+
+
+
+
+
+
